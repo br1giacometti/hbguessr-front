@@ -12,7 +12,7 @@ const FormSectionLayout = ({
   titleSize = "md",
   ...stackProps
 }: PropsWithChildren<FormSectionLayoutProps>) => (
-  <Stack maxW={"container.md"} spacing={6} {...stackProps}>
+  <Stack maxW={"container.sm"} spacing={6} {...stackProps}>
     {title ? <Heading size={titleSize}>{title}</Heading> : null}
     {children}
   </Stack>

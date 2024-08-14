@@ -8,7 +8,12 @@
   },
   "sidebar": {
     "menu": {
-      "home": "Home"
+      "home": "Home",
+      "product": "Products",
+      "field": "Fields",
+      "aplicator": "Aplicactors",
+      "warehouse": "Warehouse",
+      "movements": "Movements"
     }
   }
 }

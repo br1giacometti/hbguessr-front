@@ -8,7 +8,12 @@
   },
   "sidebar": {
     "menu": {
-      "home": "Inicio"
+      "home": "Inicio",
+      "product": "Productos",
+      "field": "Campos",
+      "aplicator": "Aplicadores",
+      "warehouse": "Almacén",
+      "movements": "Movimientos"
     }
   }
 }

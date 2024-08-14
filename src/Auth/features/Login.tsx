@@ -31,7 +31,7 @@ export default function Login({
   navigateToHome,
 }: // navigateToSignUp,
 LoginProps) {
-  const { t } = useTranslation("auth");
+  // const { t } = useTranslation("auth");
   const {
     register,
     handleSubmit,
@@ -77,7 +77,7 @@ LoginProps) {
         position="relative"
       >
         <Box bottom={0} left={0} position="absolute" right={0} top={0}>
-          {errorMessage.length > 0 ? (
+          {errorMessage !== undefined && errorMessage.length > 0 ? (
             <ErrorMessageTop message={errorMessage} onClose={onErrorClose} />
           ) : null}
         </Box>
@@ -105,14 +105,14 @@ LoginProps) {
                 justifyContent="flex-end"
                 spacing={{ base: 6, md: 6 }}
               >
-                <Heading fontSize={"2xl"}>{t("signIn.title")}</Heading>
+                <Heading fontSize={"2xl"}>{"Logearse"}</Heading>
                 <Stack spacing={{ base: 8, md: 6 }}>
                   <FormControl id="email" isInvalid={Boolean(errors.email)}>
-                    <FormLabel>{t("common.label.email")}</FormLabel>
+                    <FormLabel>{"Usuario"}</FormLabel>
                     <Input type="email" {...register("email")} />
                     {errors.email ? (
                       <FormErrorMessage>
-                        {t(`common.error.${errors.email.message}`)}
+                        {`common.error.${errors.email.message}`}
                       </FormErrorMessage>
                     ) : null}
                   </FormControl>
@@ -120,11 +120,11 @@ LoginProps) {
                     id="password"
                     isInvalid={Boolean(errors.password)}
                   >
-                    <FormLabel>{t("common.label.password")}</FormLabel>
+                    <FormLabel>{"Contraseña"}</FormLabel>
                     <Input type="password" {...register("password")} />
                     {errors.password ? (
                       <FormErrorMessage>
-                        {t(`common.error.${errors.password.message}`)}
+                        {`common.error.${errors.password.message}`}
                       </FormErrorMessage>
                     ) : null}
                   </FormControl>
@@ -133,14 +133,14 @@ LoginProps) {
               <Stack flex={1} justifyContent="flex-end" spacing={6}>
                 <Button
                   colorScheme={"main"}
-                  isLoading={loading}
+                  // isLoading={loading}
                   type="submit"
                   variant={"solid"}
                 >
-                  {t("signIn.button.submit")}
+                  {"Submit"}
                 </Button>
                 <Button variant="outline" onClick={navigateToSignUp}>
-                  {t("signIn.button.signUp")}
+                  {"Register"}
                 </Button>
               </Stack>
             </Stack>

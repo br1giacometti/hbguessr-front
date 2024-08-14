@@ -1,22 +1,19 @@
-module.exports = {
-  env: {
-    node: true,
-    jest: true,
-    browser: true,
+{
+  "env": {
+    "node": true,
+    "jest": true,
+    "browser": true
   },
-  extends: [
+  "extends": [
     "eslint:recommended",
     "airbnb-base",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:react/jsx-runtime",
     "plugin:@next/next/recommended",
-    // "plugin:cypress/recommended",
-    // "plugin:jest-dom/recommended",
-    "prettier",
+    "prettier"
   ],
-  rules: {
-    "class-methods-use-this": ["error", { enforceForClassFields: false }],
+  "rules": {
+    "class-methods-use-this": ["error", { "enforceForClassFields": false }],
     "default-param-last": "off",
     "import/extensions": ["error", "never"],
     "import/no-anonymous-default-export": "warn",
@@ -26,9 +23,9 @@ module.exports = {
     "jsx-a11y/alt-text": [
       "warn",
       {
-        elements: ["img"],
-        img: ["Image"],
-      },
+        "elements": ["img"],
+        "img": ["Image"]
+      }
     ],
     "jsx-a11y/aria-props": "warn",
     "jsx-a11y/aria-proptypes": "warn",
@@ -38,50 +35,40 @@ module.exports = {
     "react/jsx-sort-props": [
       "warn",
       {
-        callbacksLast: true,
-        shorthandFirst: true,
-        noSortAlphabetically: false,
-        reservedFirst: true,
-      },
-    ],
+        "callbacksLast": true,
+        "shorthandFirst": true,
+        "noSortAlphabetically": false,
+        "reservedFirst": true
+      }
+    ]
   },
-  plugins: [
+  "plugins": [
     "import",
     "@typescript-eslint",
     "react",
-    "jsx-a11y",
-    // "cypress",
-    // "jest-dom",
+    "jsx-a11y"
   ],
-  settings: {
-    react: {
-      version: "18",
+  "settings": {
+    "react": {
+      "version": "18"
     },
     "import/resolver": {
-      node: {
-        extensions: [".js", ".jsx", ".ts", ".tsx"],
-        moduleDirectory: ["node_modules", "src/"],
-      },
-    },
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    }
   },
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    sourceType: "module",
-    ecmaVersion: "latest",
-    ecmaFeatures: {
-      jsx: true,
-    },
-  },
-  overrides: [
+  "overrides": [
     {
-      files: ["*.ts", "*.tsx"],
-      extends: ["plugin:@typescript-eslint/recommended"],
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@typescript-eslint/recommended"]
     },
     {
-      files: ["**/*.test.js", "**/*.test.jsx"],
-      env: {
-        jest: true,
-      },
-    },
-  ],
-};
+      "files": ["**/*.test.js", "**/*.test.jsx"],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+}
