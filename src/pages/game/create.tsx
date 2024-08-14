@@ -9,12 +9,11 @@ const GameCreatePage = () => {
   const { t } = useTranslation("game");
   const router = useRouter();
 
-  const navigateToGame = useCallback(() => router.push("/Game"), [router]);
   return (
     <PageLayout>
       {{
         header: <Heading>{t("create.title")}</Heading>,
-        content: <CreateGame navigateToGame={navigateToGame} />,
+        content: <CreateGame />,
       }}
     </PageLayout>
   );
