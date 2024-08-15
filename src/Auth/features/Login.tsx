@@ -1,8 +1,6 @@
 import { useAuthMethods, useAuthStatus } from "@kushitech/auth-module";
-
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import {
   Button,
   Flex,
@@ -14,6 +12,7 @@ import {
   Image,
   FormErrorMessage,
   Box,
+  Text,
 } from "@chakra-ui/react";
 import loginSchema, { LoginSchema } from "Auth/schemas/LoginSchema";
 import { useTranslation } from "Base/i18n";
@@ -97,7 +96,7 @@ LoginProps) {
             onSubmit={handleSubmit(handleLogin)}
           >
             <Box mb={6}>
-              <Logo width={280} />
+              <Logo width={30} />
             </Box>
             <Stack flex={1} spacing={{ base: 0, md: 12 }}>
               <Stack
@@ -147,15 +146,13 @@ LoginProps) {
           </Stack>
         </Flex>
       </Box>
-      <Box flex={1}>
+      <Box flex={1} position="relative">
         <Image
           alt={"Login Image"}
           display={{ base: "none", md: "block" }}
           h="100%"
           objectFit={"cover"}
-          src={
-            "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80"
-          }
+          src={"https://i.redd.it/5hv98hq1n8911.jpg"}
           w="100%"
         />
       </Box>

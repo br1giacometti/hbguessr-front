@@ -1,5 +1,13 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
-import { Box, Button, Text, VStack, Spinner, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Text,
+  VStack,
+  Spinner,
+  useToast,
+  Image,
+} from "@chakra-ui/react";
 import { useTranslation } from "Base/i18n";
 import useAllLocationService from "Location/data/LocationRepository/hooks/useAllLocationService";
 import useAllMapService from "Map/data/MapRepository/hooks/useAllMapService";
@@ -223,7 +231,9 @@ const CreateGame = ({ navigateToCreateGame }: GameHeaderProps) => {
       {!gameStarted && (
         <VStack spacing={4} align="center">
           <Text>{"¿Cuánto conoces el Helbreath?!"}</Text>
-          <Button onClick={handleStartGame}>{"Comenzar!"}</Button>
+          <Button onClick={handleStartGame} colorScheme={"main"}>
+            {"Comenzar!"}
+          </Button>
         </VStack>
       )}
 

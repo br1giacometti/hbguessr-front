@@ -1,10 +1,23 @@
-import Image from "next/image";
-import { useColorModeValue } from "@chakra-ui/react";
+import { Text, useColorModeValue } from "@chakra-ui/react";
 
-const Logo = ({ width = 160 }) => {
-  const imageSrc = useColorModeValue("/logo.svg", "/logo.svg");
+interface LogoProps {
+  width?: number | string;
+}
 
-  return <Image priority alt="logo" height={20} src={imageSrc} width={width} />;
+const Logo = ({ width = 160 }: LogoProps) => {
+  const textColor = useColorModeValue("black", "white");
+
+  return (
+    <Text
+      as="h1"
+      fontSize={width}
+      fontWeight="bold"
+      color={textColor}
+      letterSpacing="widest"
+    >
+      HBGuessr
+    </Text>
+  );
 };
 
 export default Logo;
