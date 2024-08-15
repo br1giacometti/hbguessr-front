@@ -23,13 +23,13 @@ import { Logo } from "Base/components";
 
 interface LoginProps {
   navigateToHome: () => void;
-  navigateToSignUp?: () => void;
+  navigateToRegister: () => void;
 }
 
 export default function Login({
   navigateToHome,
-}: // navigateToSignUp,
-LoginProps) {
+  navigateToRegister,
+}: LoginProps) {
   // const { t } = useTranslation("auth");
   const {
     register,
@@ -60,11 +60,9 @@ LoginProps) {
       });
   };
 
-  const navigateToSignUp = useCallback(
-    // eslint-disable-next-line no-console
-    () => console.warn("Not implemented yet!"),
-    []
-  );
+  const navigateToSignUp = useCallback(() => {
+    navigateToRegister();
+  }, [navigateToRegister]);
 
   return (
     <Stack direction={{ base: "column", md: "row" }} height="full" spacing={0}>
@@ -136,10 +134,10 @@ LoginProps) {
                   type="submit"
                   variant={"solid"}
                 >
-                  {"Submit"}
+                  {"Login"}
                 </Button>
                 <Button variant="outline" onClick={navigateToSignUp}>
-                  {"Register"}
+                  {"Registrarse"}
                 </Button>
               </Stack>
             </Stack>

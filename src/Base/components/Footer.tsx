@@ -27,7 +27,7 @@ const Footer = () => {
         <Logo width={30} />
       </Flex>
       <Text fontSize={"sm"} pt={6} textAlign={"center"}>
-        © {new Date().getFullYear()} {"GiacoNets"}
+        © {new Date().getFullYear()} {"GiacoNets - "}
       </Text>
     </Box>
   );

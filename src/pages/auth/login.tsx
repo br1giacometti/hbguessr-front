@@ -1,6 +1,7 @@
-import { useCallback } from "react";
-import { useRouter } from "next/router";
 import Login from "Auth/features/Login";
+import { useRouter } from "next/router";
+import { useCallback } from "react";
+// Adjust the import path as necessary
 
 const LoginPage = () => {
   const router = useRouter();
@@ -9,14 +10,14 @@ const LoginPage = () => {
     router.replace("/");
   }, [router]);
 
-  /*   const navigateToSignUp = useCallback(() => {
-    router.push("/auth/sign-up");
-  }, [router]); */
+  const navigateToRegister = useCallback(() => {
+    router.push("/auth/register");
+  }, [router]);
 
   return (
     <Login
       navigateToHome={navigateToHome}
-      // navigateToSignUp={navigateToSignUp}
+      navigateToRegister={navigateToRegister}
     />
   );
 };
