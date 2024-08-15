@@ -10,7 +10,7 @@ const LocationCreatePage = () => {
   const router = useRouter();
 
   const navigateToLocation = useCallback(
-    () => router.push("/Location"),
+    () => router.push("/location"),
     [router]
   );
   return (

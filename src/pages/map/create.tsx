@@ -9,7 +9,7 @@ const MapCreatePage = () => {
   const { t } = useTranslation("Map");
   const router = useRouter();
 
-  const navigateToMap = useCallback(() => router.push("/Map"), [router]);
+  const navigateToMap = useCallback(() => router.push("/map"), [router]);
   return (
     <PageLayout>
       {{
