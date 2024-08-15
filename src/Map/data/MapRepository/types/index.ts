@@ -5,6 +5,8 @@ export interface Map {
   name: string;
   id: number;
   imageUrl: string;
+  sizeX: number;
+  sizeY: number;
 }
 
 export interface MapRepository {

@@ -50,6 +50,14 @@ const MapList = () => {
         label: t("datatable.label.description"),
         selector: (row) => row.name,
       },
+      {
+        label: t("datatable.label.description"),
+        selector: (row) => row.sizeX,
+      },
+      {
+        label: t("datatable.label.description"),
+        selector: (row) => row.sizeY,
+      },
     ],
     [deleteState.loading, deleteState.selected?.id, t]
   );

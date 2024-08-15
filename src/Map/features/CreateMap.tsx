@@ -9,6 +9,7 @@ import FormContainerLayout from "Base/layout/FormContainerLayout";
 import FormSectionLayout from "Base/layout/FormSectionLayout";
 import { FormInputText } from "Base/components";
 import useCreateMapService from "Map/data/MapRepository/hooks/useCreateMapService";
+import FormInputNumber from "Base/components/FormInputNumber";
 
 interface CreateMapProps {
   navigateToMap: () => void;
@@ -83,6 +84,38 @@ const CreateMap = ({ navigateToMap }: CreateMapProps) => {
             inputProps={register("imageUrl")}
             label={"Link Img"}
             name="imageUrl"
+          />
+
+          <FormInputNumber
+            isRequired
+            control={control as any}
+            errorMessage={
+              errors.sizeX
+                ? (t(`errors.${errors.sizeX.message}`, {
+                    ns: "common",
+                  }) as string)
+                : undefined
+            }
+            id="sizeX"
+            label={"sizeX"}
+            name="sizeX"
+            type="number"
+          />
+
+          <FormInputNumber
+            isRequired
+            control={control as any}
+            errorMessage={
+              errors.sizeY
+                ? (t(`errors.${errors.sizeY.message}`, {
+                    ns: "common",
+                  }) as string)
+                : undefined
+            }
+            id="sizeY"
+            label={"sizeY"}
+            name="coordY"
+            type="number"
           />
         </FormSectionLayout>
       </FormContainerLayout>
