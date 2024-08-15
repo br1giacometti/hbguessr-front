@@ -1,19 +1,19 @@
 import FetchActionTypes from "Base/types/FetchActionTypes";
-import { Product } from "Product/data/ProductRepository";
-import updateProductReducer, {
+import { Map } from "Map/data/MapRepository";
+import updateMapReducer, {
   initialState,
-} from "Product/data/ProductRepository/reducer/updateProductReducer";
+} from "Map/data/MapRepository/reducer/updateMapReducer";
 import { useReducer } from "react";
 
-const useUpdateProductStates = () => {
+const useUpdateMapStates = () => {
   const [{ loading, error }, dispatch] = useReducer(
-    updateProductReducer,
+    updateMapReducer,
     initialState
   );
 
   const startFetch = () => dispatch({ type: FetchActionTypes.Start });
 
-  const successFetch = (payload: Product) =>
+  const successFetch = (payload: Map) =>
     dispatch({ type: FetchActionTypes.Succeess, payload });
 
   const failureFetch = (errorMessage: string) =>
@@ -25,4 +25,4 @@ const useUpdateProductStates = () => {
   return { loading, error, startFetch, successFetch, failureFetch };
 };
 
-export default useUpdateProductStates;
+export default useUpdateMapStates;
