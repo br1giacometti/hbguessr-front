@@ -48,15 +48,11 @@ const GameList = () => {
     () => [
       {
         label: t("datatable.label.description"),
-        selector: (row) => row.id,
+        selector: (row) => row.user?.firstName,
       },
       {
         label: t("datatable.label.description"),
         selector: (row) => row.totalScore,
-      },
-      {
-        label: t("datatable.label.description"),
-        selector: (row) => row.user?.email,
       },
     ],
     [deleteState.loading, deleteState.selected?.id, t]

@@ -1,2 +1,2 @@
-export { default as useAllProductService } from "./useAllGameService";
-export { default as useCreateProductService } from "./useCreateGameService";
+export { default as useAllGameService } from "./useAllGameService";
+export { default as useCreateGameService } from "./useCreateGameService";

@@ -7,12 +7,21 @@ const useCreateGameService = (
   callback: (error?: string) => void
 ) => {
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (body !== null) {
       setLoading(true);
       createGameService(body)
-        .then(() => callback())
-        .catch((error) => callback(error.message))
+        .then(() => {
+          if (typeof callback === "function") {
+            callback();
+          }
+        })
+        .catch((error) => {
+          if (typeof callback === "function") {
+            callback(error.message);
+          }
+        })
         .finally(() => setLoading(false));
     }
   }, [body, callback]);
