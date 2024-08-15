@@ -17,7 +17,7 @@ const AuthenticatedApp = ({ Component, pageProps }: any) => {
     return <Loading h="100vh" />;
   }
 
-  const isAdmin = user?.rol === "ADMIN";
+  const isAdmin = user?.rol !== "ADMIN";
 
   if (isAdmin) {
     return (
