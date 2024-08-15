@@ -31,7 +31,11 @@ type DeleteState = {
   selected: Map | null;
 };
 
-const MapList = () => {
+interface MapListProps {
+  navigateToEdit: (map: Map) => void;
+}
+
+const MapList = ({ navigateToEdit }: MapListProps) => {
   const { t } = useTranslation("map");
   const toast = useToast();
 
@@ -47,16 +51,45 @@ const MapList = () => {
   const columns: BaseColumn<Map>[] = useMemo(
     () => [
       {
-        label: t("datatable.label.description"),
+        label: t("Nombre"),
         selector: (row) => row.name,
       },
       {
-        label: t("datatable.label.description"),
+        label: t("sizeX"),
         selector: (row) => row.sizeX,
       },
       {
-        label: t("datatable.label.description"),
+        label: t("sizeY"),
         selector: (row) => row.sizeY,
+      },
+      {
+        label: t("Ubicacion"),
+        selector: (row) => row.ubication,
+      },
+      {
+        label: t("Acciones"),
+        selector: (row) => (
+          <>
+            <Flex gap={2}>
+              <Tooltip label={t("Editar")} placement="bottom">
+                <IconButton
+                  aria-label="Edit icon"
+                  colorScheme="gray"
+                  icon={<EditIcon />}
+                  isDisabled={
+                    deleteState.loading && row.id !== deleteState.selected?.id
+                  }
+                  isLoading={
+                    deleteState.loading && row.id === deleteState.selected?.id
+                  }
+                  size="sm"
+                  variant="outline"
+                  onClick={() => navigateToEdit(row)}
+                />
+              </Tooltip>
+            </Flex>
+          </>
+        ),
       },
     ],
     [deleteState.loading, deleteState.selected?.id, t]

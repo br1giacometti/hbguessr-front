@@ -3,6 +3,7 @@ import createMap from "./services/createMap";
 import getAllMap from "./services/getAllMap";
 import MapClient from "./client";
 import getMapById from "./services/getMapById";
+import updateMap from "./services/updateMap";
 
 const createMapRepository = (userToken: string): MapRepository => {
   MapClient.defaults.headers.common = {
@@ -13,6 +14,7 @@ const createMapRepository = (userToken: string): MapRepository => {
     createMap,
     getAllMap,
     getMapById,
+    updateMap,
   };
 };
 

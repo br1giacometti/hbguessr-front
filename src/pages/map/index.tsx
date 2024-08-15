@@ -14,11 +14,18 @@ const MapPage = () => {
     [router]
   );
 
+  const navigateToEdit = useCallback(
+    (product: Map) => {
+      router.push(`/map/edit/${product.id}`);
+    },
+    [router]
+  );
+
   return (
     <PageLayout>
       {{
         header: <MapHeader navigateToCreateMap={navigateToCreateMap} />,
-        content: <MapList />,
+        content: <MapList navigateToEdit={navigateToEdit} />,
       }}
     </PageLayout>
   );

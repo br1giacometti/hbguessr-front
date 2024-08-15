@@ -1,8 +1,7 @@
 import { z } from "zod";
 
-const createMapSchema = z.object({
-  name: z.string().min(2, { message: "nameMustBeAtleast3" }),
-  imageUrl: z.string().min(2, { message: "nameMustBeAtleast3" }),
+const updateMapSchema = z.object({
+  imageUrl: z.string().min(2, { message: "nameMustBeAtleast3" }).optional(),
   ubication: z.string().transform((val, ctx) => {
     const parsed = Number.parseInt(val.replaceAll(".", ""), 10);
     if (Number.isNaN(parsed)) {
@@ -59,6 +58,6 @@ const createMapSchema = z.object({
   }),
 });
 
-export type CreateMapSchema = z.infer<typeof createMapSchema>;
+export type UpdateMapSchema = z.infer<typeof updateMapSchema>;
 
-export default createMapSchema;
+export default updateMapSchema;

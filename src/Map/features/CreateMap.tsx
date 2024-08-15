@@ -117,6 +117,21 @@ const CreateMap = ({ navigateToMap }: CreateMapProps) => {
             name="sizeY"
             type="number"
           />
+          <FormInputNumber
+            isRequired
+            control={control as any}
+            errorMessage={
+              errors.ubication
+                ? (t(`errors.${errors.ubication.message}`, {
+                    ns: "common",
+                  }) as string)
+                : undefined
+            }
+            id="ubication"
+            label={"ubication"}
+            name="ubication"
+            type="number"
+          />
         </FormSectionLayout>
       </FormContainerLayout>
       <Button
