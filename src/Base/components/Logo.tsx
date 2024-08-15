@@ -14,6 +14,7 @@ const Logo = ({ width = 160 }: LogoProps) => {
       fontWeight="bold"
       color={textColor}
       letterSpacing="widest"
+      maxH={200}
     >
       HBGuessr
     </Text>
