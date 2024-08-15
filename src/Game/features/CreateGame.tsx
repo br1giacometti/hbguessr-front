@@ -9,7 +9,7 @@ import useCreateGameService from "Game/data/GameRepository/hooks/useCreateGameSe
 import { CreateGameSchema } from "Game/schemas/createGameSchema";
 
 const MAP_SIZE = 256; // Tamaño de cada mapa en píxeles
-const MAPS_PER_ROW = 3; // Número de mapas por fila
+const MAPS_PER_ROW = 5; // Número de mapas por fila
 const TOTAL_ROUNDS = 10; // Número total de rondas en el juego
 
 interface GameHeaderProps {
@@ -275,11 +275,11 @@ const CreateGame = ({ navigateToCreateGame }: GameHeaderProps) => {
         <Text fontSize="lg">Score Round: {score.toFixed(0)}</Text>
       )}
 
-      {totalScore !== null && (
+      {totalScore !== null && gameStarted && (
         <Text fontSize="lg">Score Total: {totalScore.toFixed(0)}</Text>
       )}
 
-      {currentRound > 0 && !gameEnded && (
+      {currentRound > 0 && !gameEnded && gameStarted && (
         <Button onClick={handleCreateLocation}>
           {currentRound >= TOTAL_ROUNDS ? "Terminar" : "Siguiente ubicación"}
         </Button>
