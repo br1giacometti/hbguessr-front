@@ -7,7 +7,7 @@ const LoginPage = () => {
   const router = useRouter();
 
   const navigateToHome = useCallback(() => {
-    router.replace("/");
+    router.replace("/game/");
   }, [router]);
 
   const navigateToRegister = useCallback(() => {

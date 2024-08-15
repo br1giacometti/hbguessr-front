@@ -7,6 +7,7 @@ import {
   Spinner,
   useToast,
   Image,
+  Flex,
 } from "@chakra-ui/react";
 import { useTranslation } from "Base/i18n";
 import useAllLocationService from "Location/data/LocationRepository/hooks/useAllLocationService";
@@ -16,7 +17,7 @@ import { Location } from "Location/data/LocationRepository";
 import useCreateGameService from "Game/data/GameRepository/hooks/useCreateGameService";
 import { CreateGameSchema } from "Game/schemas/createGameSchema";
 
-const MAP_SIZE = 256; // Tamaño de cada mapa en píxeles
+const MAP_SIZE = 160; // Tamaño de cada mapa en píxeles
 const MAPS_PER_ROW = 5; // Número de mapas por fila
 const TOTAL_ROUNDS = 10; // Número total de rondas en el juego
 const INTERVALO = 10000;
@@ -177,7 +178,7 @@ const CreateGame = ({ navigateToCreateGame }: GameHeaderProps) => {
 
       toast({
         status: "success",
-        description: t("gameEndMessage"),
+        description: t("Juego Terminado"),
       });
     }
   }, [
@@ -228,75 +229,135 @@ const CreateGame = ({ navigateToCreateGame }: GameHeaderProps) => {
 
   return (
     <VStack spacing={4} align="center" position="relative">
-      {!gameStarted && (
-        <VStack spacing={4} align="center">
-          <Text>{"¿Cuánto conoces el Helbreath?!"}</Text>
-          <Button onClick={handleStartGame} colorScheme={"main"}>
-            {"Comenzar!"}
-          </Button>
-        </VStack>
-      )}
-
-      {loading && randomLocation && (
-        <VStack spacing={4} align="center">
-          <Text>{t("Descubre dónde se encuentra! Tienes 10 segundos")}</Text>
-          <img
-            src={randomLocation.imageUrl}
-            alt={`Location ${randomLocation.id}`}
-            style={{ width: "800px", height: "auto" }}
-          />
-        </VStack>
-      )}
-
-      {showMaps && maps.length > 0 && (
+      <Box
+        position="relative"
+        height="100vh"
+        width="100vw"
+        bgImage="url('https://i.redd.it/5hv98hq1n8911.jpg')"
+        bgSize="cover"
+        bgPosition="center"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        bgRepeat={"repeat-y"}
+      >
         <Box
-          position="relative"
-          onClick={handleMapClick}
-          width={MAP_SIZE * MAPS_PER_ROW}
-          height={totalHeight}
+          bg="blackAlpha.600" // Fondo negro semitransparente
+          borderRadius="md"
+          m={200}
+          width="100%"
+          height="100%"
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
         >
-          <canvas
-            ref={canvasRef}
-            width={MAP_SIZE * MAPS_PER_ROW}
-            height={totalHeight}
-            style={{ position: "absolute", top: 0, left: 0, zIndex: 1 }}
-          />
-          {maps.map((map) => {
-            const row = Math.floor(maps.indexOf(map) / MAPS_PER_ROW);
-            const col = maps.indexOf(map) % MAPS_PER_ROW;
-            return (
+          {!gameStarted && (
+            <VStack spacing={4} align="center">
+              <Text>{"¿Cuánto conoces el Helbreath?!"}</Text>
+              <Button onClick={handleStartGame} colorScheme={"main"}>
+                {"Comenzar!"}
+              </Button>
+            </VStack>
+          )}
+
+          <Flex
+            justify="space-between"
+            align="center"
+            p={4}
+            borderRadius="md"
+            boxShadow="md"
+            width="100%"
+            position="relative"
+          >
+            <Flex direction="column" align="center" mb={4}>
+              {score !== null && (
+                <Text
+                  fontSize="lg"
+                  fontWeight="bold"
+                  color="main"
+                  mb={2}
+                  textAlign="center"
+                >
+                  Score Round: {score.toFixed(0)}
+                </Text>
+              )}
+              {totalScore !== null && gameStarted && (
+                <Text
+                  fontSize="lg"
+                  fontWeight="bold"
+                  color="main"
+                  textAlign="center"
+                >
+                  Score Total: {totalScore.toFixed(0)}
+                </Text>
+              )}
+            </Flex>
+
+            {currentRound > 0 && !gameEnded && gameStarted && (
+              <Button
+                onClick={handleCreateLocation}
+                colorScheme={"main"}
+                variant="solid"
+                size="lg"
+              >
+                {currentRound >= TOTAL_ROUNDS
+                  ? `Terminar (Ronda ${currentRound} de ${TOTAL_ROUNDS})`
+                  : `Siguiente ubicación (Ronda ${currentRound} de ${TOTAL_ROUNDS})`}
+              </Button>
+            )}
+          </Flex>
+
+          {gameEnded && <Text fontSize="lg">{t("Juego Terminado")}</Text>}
+
+          {loading && randomLocation && (
+            <VStack spacing={4} align="center">
+              <Text>
+                {t("Descubre dónde se encuentra! Tienes 10 segundos")}
+              </Text>
               <img
-                key={map.id}
-                src={map.imageUrl}
-                alt={`Map ${map.id}`}
-                style={{
-                  position: "absolute",
-                  top: row * MAP_SIZE,
-                  left: col * MAP_SIZE,
-                  width: MAP_SIZE,
-                  height: MAP_SIZE,
-                }}
+                src={randomLocation.imageUrl}
+                alt={`Location ${randomLocation.id}`}
+                style={{ width: "800px", height: "auto" }}
               />
-            );
-          })}
+            </VStack>
+          )}
+
+          {showMaps && maps.length > 0 && (
+            <Box
+              position="relative"
+              onClick={handleMapClick}
+              width={MAP_SIZE * MAPS_PER_ROW}
+              height={totalHeight}
+            >
+              <canvas
+                ref={canvasRef}
+                width={MAP_SIZE * MAPS_PER_ROW}
+                height={totalHeight}
+                style={{ position: "absolute", top: 0, left: 0, zIndex: 1 }}
+              />
+              {maps.map((map) => {
+                const row = Math.floor(maps.indexOf(map) / MAPS_PER_ROW);
+                const col = maps.indexOf(map) % MAPS_PER_ROW;
+                return (
+                  <img
+                    key={map.id}
+                    src={map.imageUrl}
+                    alt={`Map ${map.id}`}
+                    style={{
+                      position: "absolute",
+                      top: row * MAP_SIZE,
+                      left: col * MAP_SIZE,
+                      width: MAP_SIZE,
+                      height: MAP_SIZE,
+                    }}
+                  />
+                );
+              })}
+            </Box>
+          )}
         </Box>
-      )}
-
-      {score !== null && (
-        <Text fontSize="lg">Score Round: {score.toFixed(0)}</Text>
-      )}
-
-      {totalScore !== null && gameStarted && (
-        <Text fontSize="lg">Score Total: {totalScore.toFixed(0)}</Text>
-      )}
-
-      {currentRound > 0 && !gameEnded && gameStarted && (
-        <Button onClick={handleCreateLocation}>
-          {currentRound >= TOTAL_ROUNDS ? "Terminar" : "Siguiente ubicación"}
-        </Button>
-      )}
-
-      {gameEnded && <Text fontSize="lg">{t("gameEndMessage")}</Text>}
+      </Box>
     </VStack>
   );
 };

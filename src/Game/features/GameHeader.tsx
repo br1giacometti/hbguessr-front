@@ -19,7 +19,7 @@ const GameHeader = ({ navigateToCreateGame }: GameHeaderProps) => {
         onClick={navigateToCreateGame}
         mb={4} // Margen inferior para separar el botón del título
       >
-        {"Volver a jugar!"}
+        {"Jugar !"}
       </Button>
       <Heading>{t("Top 50 jugadores", { ns: "appLayout" })}</Heading>
     </Flex>

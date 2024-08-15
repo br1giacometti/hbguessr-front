@@ -1,28 +1,17 @@
 import { ChangeEvent, useCallback, useMemo, useState } from "react";
-
 import { useTranslation } from "Base/i18n";
 import DataTable, { BaseColumn } from "Base/components/DataTable";
-
 import formatDate from "Base/utils/formatters/formatDate";
-
 import formatPrice from "Base/utils/formatters/formatPrice";
-
 import {
   Box,
   Flex,
-  Icon,
   IconButton,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Tooltip,
+  Text,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-
 import { Game } from "Game/data/GameRepository";
 import useAllGameService from "Game/data/GameRepository/hooks/useAllGameService";
 
@@ -59,12 +48,37 @@ const GameList = () => {
   );
 
   return (
-    <>
-      <Flex alignItems="center" justifyContent="space-between"></Flex>
-      <Box pl={300} pr={300}>
-        <DataTable columns={columns} data={GameList} loading={loading} />
+    <Box
+      position="relative"
+      height="100vh"
+      width="100vw"
+      bgImage="url('https://i.redd.it/5hv98hq1n8911.jpg')"
+      bgSize="cover"
+      bgPosition="center"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Box
+        bg="blackAlpha.600" // Fondo negro semitransparente
+        borderRadius="md"
+        p={8}
+        width="80%"
+        maxWidth="1200px"
+        height="80%"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Text as="h1" fontSize="4xl" color="white" mb={4}>
+          ¿Cuánto conoces el Helbreath?
+        </Text>
+        <Box width="full" mb={4}>
+          <DataTable columns={columns} data={GameList} loading={loading} />
+        </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 

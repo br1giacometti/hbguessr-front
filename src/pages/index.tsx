@@ -1,6 +1,6 @@
-import { useCallback } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { Heading, Box } from "@chakra-ui/react";
+import { Heading } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import Head from "next/head";
 import PageLayout from "Base/layout/PageLayout";
@@ -10,10 +10,10 @@ const Home = () => {
   const { t } = useTranslation("game");
   const router = useRouter();
 
-  const navigateToCreateGame = useCallback(
-    () => router.push("/game/"),
-    [router]
-  );
+  useEffect(() => {
+    // Redirige automáticamente a /game/ cuando el componente se monta
+    router.push("/game/");
+  }, [router]);
 
   return (
     <>
@@ -25,7 +25,9 @@ const Home = () => {
       <PageLayout>
         {{
           header: <Heading>{""}</Heading>,
-          content: <CreateGame navigateToCreateGame={navigateToCreateGame} />,
+          content: (
+            <CreateGame navigateToCreateGame={() => router.push("/game/")} />
+          ),
         }}
       </PageLayout>
       {/* Puedes descomentar esta sección para usar DataTable

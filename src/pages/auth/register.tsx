@@ -9,7 +9,7 @@ const UserCreatePage = () => {
   const { t } = useTranslation("auth");
   const router = useRouter();
 
-  const navigateToHome = useCallback(() => router.push("/"), [router]);
+  const navigateToHome = useCallback(() => router.push("/game/"), [router]);
   return (
     <PageLayout>
       {{
