@@ -11,6 +11,7 @@ import { CreateGameSchema } from "Game/schemas/createGameSchema";
 const MAP_SIZE = 256; // Tamaño de cada mapa en píxeles
 const MAPS_PER_ROW = 5; // Número de mapas por fila
 const TOTAL_ROUNDS = 10; // Número total de rondas en el juego
+const INTERVALO = 10000;
 
 interface GameHeaderProps {
   navigateToCreateGame: () => void;
@@ -61,7 +62,7 @@ const CreateGame = ({ navigateToCreateGame }: GameHeaderProps) => {
       const timer = setTimeout(() => {
         setLoading(false);
         setShowMaps(true);
-      }, 1000); // show maps after 1 second for better UX
+      }, INTERVALO); // show maps after 1 second for better UX
 
       return () => clearTimeout(timer);
     } else {

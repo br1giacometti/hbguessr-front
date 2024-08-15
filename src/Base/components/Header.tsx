@@ -14,22 +14,31 @@ import { useDrawer } from "Base/contexts/DrawerContext";
 import { ProfileMenu } from "Base/components";
 
 import ContextMenuItem from "Base/types/ContextMenuItem";
+import { useAuthMethods, useAuthStatus } from "@kushitech/auth-module";
 
 interface HeaderProps {
   menu: ContextMenuItem[];
   username: string;
   hideMenuOnMobile?: boolean;
+  showSidebarToggle?: boolean; // Nueva propiedad para controlar la visibilidad del toggle
 }
 
 const Header = ({
   menu,
   username,
   hideMenuOnMobile,
+  showSidebarToggle = true, // Valor predeterminado es true
 }: HeaderProps): JSX.Element => {
   const sidebar = useSidebar();
   const drawer = useDrawer();
   const { toggleColorMode } = useColorMode();
   const ColorModeIcon = useColorModeValue(SunIcon, MoonIcon);
+
+  const { logout } = useAuthStatus();
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <Flex
@@ -39,30 +48,40 @@ const Header = ({
       justifyContent="space-between"
       px={4}
       transition="width 0.4s"
-      w={{ lg: `calc(100vw - 16px - ${sidebar.isOpen ? "250px" : "70px"} )` }}
+      // Cambia el ancho solo si showSidebarToggle es true
+      w={{
+        lg: showSidebarToggle
+          ? `calc(100vw - 16px - ${sidebar.isOpen ? "250px" : "70px"} )`
+          : "100%",
+      }}
     >
-      <Center py={3}>
-        <IconButton
-          aria-label="Menu"
-          display={{ base: "none", md: !sidebar.isOpen ? "initial" : "none" }}
-          icon={<Icon as={Bars3Icon} h={4} w={4} />}
-          mr={2}
-          px={3}
-          size="xs"
-          variant="ghost"
-          onClick={sidebar.toggle}
-        />
-        <IconButton
-          aria-label="Menu"
-          display={{ base: hideMenuOnMobile ? "none" : "initial", md: "none" }}
-          icon={<Icon as={Bars3Icon} h={4} w={4} />}
-          mr={2}
-          px={3}
-          size="xs"
-          variant="ghost"
-          onClick={drawer.toggle}
-        />
-      </Center>
+      {showSidebarToggle && (
+        <Center py={3}>
+          <IconButton
+            aria-label="Menu"
+            display={{ base: "none", md: !sidebar.isOpen ? "initial" : "none" }}
+            icon={<Icon as={Bars3Icon} h={4} w={4} />}
+            mr={2}
+            px={3}
+            size="xs"
+            variant="ghost"
+            onClick={sidebar.toggle}
+          />
+          <IconButton
+            aria-label="Menu"
+            display={{
+              base: hideMenuOnMobile ? "none" : "initial",
+              md: "none",
+            }}
+            icon={<Icon as={Bars3Icon} h={4} w={4} />}
+            mr={2}
+            px={3}
+            size="xs"
+            variant="ghost"
+            onClick={drawer.toggle}
+          />
+        </Center>
+      )}
       <Center gap={2}>
         <IconButton
           aria-label="dark mode"
@@ -70,7 +89,7 @@ const Header = ({
           variant="ghost"
           onClick={toggleColorMode}
         />
-        <ProfileMenu menu={menu} username={username} />
+        <ProfileMenu menu={menu} username={username} logout={handleLogout} />
       </Center>
     </Flex>
   );

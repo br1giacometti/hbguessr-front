@@ -1,6 +1,5 @@
 import { PropsWithChildren } from "react";
 import { Box, Flex, Stack } from "@chakra-ui/react";
-
 import {
   BriefcaseIcon,
   HomeIcon,
@@ -9,7 +8,6 @@ import {
   ClipboardDocumentListIcon,
   CogIcon,
 } from "@heroicons/react/24/outline";
-
 import { SidebarProvider } from "Base/contexts/SidebarContext";
 import { DrawerProvider } from "Base/contexts/DrawerContext";
 import { Drawer, Header, Sidebar, Footer } from "Base/components";

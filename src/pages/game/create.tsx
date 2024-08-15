@@ -17,7 +17,7 @@ const GameCreatePage = () => {
   return (
     <PageLayout>
       {{
-        header: <Heading>{t("create.title")}</Heading>,
+        header: <Heading>{""}</Heading>,
         content: <CreateGame navigateToCreateGame={navigateToCreateGame} />,
       }}
     </PageLayout>

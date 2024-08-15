@@ -14,12 +14,14 @@ interface ProfileMenuProps {
   menu: ContextMenuItem[];
   profileImageUrl?: string;
   username?: string;
+  logout: () => void; // Añadimos la propiedad logout
 }
 
 const ProfileMenu = ({
   menu,
   profileImageUrl,
   username,
+  logout, // Recibimos la función logout
 }: ProfileMenuProps): JSX.Element => (
   <Center bg="neutral.200" gap={4} height="100%" px={2}>
     <Avatar
@@ -44,6 +46,7 @@ const ProfileMenu = ({
             {menuItem.label}
           </MenuItem>
         ))}
+        <MenuItem onClick={logout}>Logout</MenuItem>{" "}
       </MenuList>
     </Menu>
   </Center>

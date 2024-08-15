@@ -47,11 +47,11 @@ const GameList = () => {
   const columns: BaseColumn<Game>[] = useMemo(
     () => [
       {
-        label: t("datatable.label.description"),
+        label: t("Jugador"),
         selector: (row) => row.user?.firstName,
       },
       {
-        label: t("datatable.label.description"),
+        label: t("Puntos"),
         selector: (row) => row.totalScore,
       },
     ],
@@ -60,16 +60,10 @@ const GameList = () => {
 
   return (
     <>
-      <Flex alignItems="center" justifyContent="space-between">
-        <Box>
-          <InputGroup>
-            <InputRightElement>
-              <Icon as={MagnifyingGlassIcon} />
-            </InputRightElement>
-          </InputGroup>
-        </Box>
-      </Flex>
-      <DataTable columns={columns} data={GameList} loading={loading} />
+      <Flex alignItems="center" justifyContent="space-between"></Flex>
+      <Box pl={300} pr={300}>
+        <DataTable columns={columns} data={GameList} loading={loading} />
+      </Box>
     </>
   );
 };

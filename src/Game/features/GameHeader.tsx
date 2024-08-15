@@ -12,17 +12,16 @@ const GameHeader = ({ navigateToCreateGame }: GameHeaderProps) => {
   const { t } = useTranslation(["Game", "appLayout"]);
 
   return (
-    <Flex justify="space-between" align="center">
-      <Heading>{t("Juego", { ns: "appLayout" })}</Heading>
-      <Flex gap={4}>
-        <Button
-          leftIcon={<Icon as={PlusIcon} />}
-          variant="outline"
-          onClick={navigateToCreateGame}
-        >
-          {"Jugar!"}
-        </Button>
-      </Flex>
+    <Flex direction="column" justify="center" align="center" p={8}>
+      <Button
+        leftIcon={<Icon as={PlusIcon} />}
+        variant="outline"
+        onClick={navigateToCreateGame}
+        mb={4} // Margen inferior para separar el botón del título
+      >
+        {"Volver a jugar!"}
+      </Button>
+      <Heading>{t("Top 50 jugadores", { ns: "appLayout" })}</Heading>
     </Flex>
   );
 };
