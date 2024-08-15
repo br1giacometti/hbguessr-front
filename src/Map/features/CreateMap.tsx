@@ -114,7 +114,7 @@ const CreateMap = ({ navigateToMap }: CreateMapProps) => {
             }
             id="sizeY"
             label={"sizeY"}
-            name="coordY"
+            name="sizeY"
             type="number"
           />
         </FormSectionLayout>

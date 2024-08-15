@@ -98,10 +98,15 @@ const CreateGame = ({ navigateToCreateGame }: GameHeaderProps) => {
         const locationIndex = maps.indexOf(locationMap);
         const locationRow = Math.floor(locationIndex / MAPS_PER_ROW);
         const locationCol = locationIndex % MAPS_PER_ROW;
-        const locationX =
-          locationCol * MAP_SIZE + (randomLocation.coordX / 300) * MAP_SIZE;
-        const locationY =
-          locationRow * MAP_SIZE + (randomLocation.coordY / 300) * MAP_SIZE;
+
+        // Ajuste de coordenadas basado en el tamaño de la cuadrícula
+        const mapOffsetX = locationCol * MAP_SIZE;
+        const mapOffsetY = locationRow * MAP_SIZE;
+        const gridX = (randomLocation.coordX / locationMap.sizeX) * MAP_SIZE;
+        const gridY = (randomLocation.coordY / locationMap.sizeY) * MAP_SIZE;
+
+        const locationX = mapOffsetX + gridX;
+        const locationY = mapOffsetY + gridY;
 
         // Limpiar el canvas antes de trazar una nueva línea
         ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
