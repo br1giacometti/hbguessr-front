@@ -38,6 +38,8 @@ const CreateGame = ({ navigateToCreateGame }: GameHeaderProps) => {
   const [userClick, setUserClick] = useState<{ x: number; y: number } | null>(
     null
   );
+
+  const [hasClicked, setHasClicked] = useState(false);
   const [score, setScore] = useState<number | null>(null);
   const [totalScore, setTotalScore] = useState<number>(0); // Puntaje total acumulado
   const [currentRound, setCurrentRound] = useState(1); // Ronda actual
@@ -69,6 +71,7 @@ const CreateGame = ({ navigateToCreateGame }: GameHeaderProps) => {
       setRandomLocation(location);
       setLoading(true);
       setLocationStart(true);
+      setHasClicked(false);
 
       const timer = setTimeout(() => {
         setLoading(false);
@@ -99,6 +102,7 @@ const CreateGame = ({ navigateToCreateGame }: GameHeaderProps) => {
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
       setUserClick({ x, y });
+      setHasClicked(true);
     }
   };
 
@@ -336,9 +340,11 @@ const CreateGame = ({ navigateToCreateGame }: GameHeaderProps) => {
                 height={totalHeight}
                 style={{ position: "absolute", top: 0, left: 0, zIndex: 1 }}
               />
+
               {maps.map((map) => {
                 const row = Math.floor(maps.indexOf(map) / MAPS_PER_ROW);
                 const col = maps.indexOf(map) % MAPS_PER_ROW;
+
                 return (
                   <img
                     key={map.id}
@@ -354,6 +360,46 @@ const CreateGame = ({ navigateToCreateGame }: GameHeaderProps) => {
                   />
                 );
               })}
+
+              {/* Mostrar el píxel solo si se ha hecho clic */}
+              {hasClicked && randomLocation && (
+                <Box
+                  position="absolute"
+                  width="5px"
+                  height="5px"
+                  backgroundColor="red"
+                  borderRadius="50%"
+                  zIndex={2} // Asegúrate de que esté sobre el mapa
+                  top={(() => {
+                    const locationMap = maps.find(
+                      (map) => map.id === randomLocation.mapId
+                    );
+                    if (locationMap) {
+                      const row = Math.floor(
+                        maps.indexOf(locationMap) / MAPS_PER_ROW
+                      );
+                      const offsetY = row * MAP_SIZE;
+                      const gridY =
+                        (randomLocation.coordY / locationMap.sizeY) * MAP_SIZE;
+                      return offsetY + gridY;
+                    }
+                    return 0;
+                  })()}
+                  left={(() => {
+                    const locationMap = maps.find(
+                      (map) => map.id === randomLocation.mapId
+                    );
+                    if (locationMap) {
+                      const col = maps.indexOf(locationMap) % MAPS_PER_ROW;
+                      const offsetX = col * MAP_SIZE;
+                      const gridX =
+                        (randomLocation.coordX / locationMap.sizeX) * MAP_SIZE;
+                      return offsetX + gridX;
+                    }
+                    return 0;
+                  })()}
+                />
+              )}
             </Box>
           )}
         </Box>
