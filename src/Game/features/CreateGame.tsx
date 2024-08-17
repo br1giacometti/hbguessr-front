@@ -34,6 +34,7 @@ const CreateGame = ({ navigateToCreateGame }: GameHeaderProps) => {
   const [showMaps, setShowMaps] = useState(false);
   const [loading, setLoading] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
+  const [locationStart, setLocationStart] = useState(false);
   const [userClick, setUserClick] = useState<{ x: number; y: number } | null>(
     null
   );
@@ -67,10 +68,12 @@ const CreateGame = ({ navigateToCreateGame }: GameHeaderProps) => {
       const location = locations[randomIndex];
       setRandomLocation(location);
       setLoading(true);
+      setLocationStart(true);
 
       const timer = setTimeout(() => {
         setLoading(false);
         setShowMaps(true);
+        setLocationStart(false);
       }, INTERVALO); // show maps after 1 second for better UX
 
       return () => clearTimeout(timer);
@@ -229,84 +232,81 @@ const CreateGame = ({ navigateToCreateGame }: GameHeaderProps) => {
 
   return (
     <VStack spacing={4} align="center" position="relative">
-      <Box
-        position="relative"
-        height="100vh"
-        width="100vw"
-        bgImage="url('https://i.redd.it/5hv98hq1n8911.jpg')"
+      <Flex
         bgSize="cover"
         bgPosition="center"
         display="flex"
         alignItems="center"
         justifyContent="center"
-        bgRepeat={"repeat-y"}
+        direction="column"
       >
+        <Flex
+          direction="column"
+          m={20}
+          borderRadius="md"
+          boxShadow="md"
+          width="100%"
+          justifyContent="center" // Centra verticalmente el contenido
+          align="center" // Centra horizontalmente el contenido
+          position="relative"
+        >
+          {score !== null && !locationStart && (
+            <Text
+              fontSize="lg"
+              fontWeight="bold"
+              color="main"
+              textAlign="center"
+              mb={4} // Añadir espacio entre los elementos
+            >
+              Score Round: {score.toFixed(0)}
+            </Text>
+          )}
+
+          {totalScore !== null && gameStarted && !locationStart && (
+            <Text
+              fontSize="lg"
+              fontWeight="bold"
+              color="main"
+              textAlign="center"
+              mb={4} // Añadir espacio entre los elementos
+            >
+              Score Total: {totalScore.toFixed(0)}
+            </Text>
+          )}
+
+          {currentRound > 0 && !gameEnded && gameStarted && !locationStart && (
+            <Button
+              onClick={handleCreateLocation}
+              colorScheme={"main"}
+              variant="solid"
+              size="lg"
+            >
+              {currentRound >= TOTAL_ROUNDS
+                ? `Terminar (Ronda ${currentRound} de ${TOTAL_ROUNDS})`
+                : `Siguiente ubicación (Ronda ${currentRound} de ${TOTAL_ROUNDS})`}
+            </Button>
+          )}
+        </Flex>
+
         <Box
           bg="blackAlpha.600" // Fondo negro semitransparente
-          borderRadius="md"
-          m={200}
-          width="100%"
-          height="100%"
+          borderRadius="xl"
           display="flex"
+          height="200px"
           flexDirection="column"
           alignItems="center"
           justifyContent="center"
         >
           {!gameStarted && (
-            <VStack spacing={4} align="center">
-              <Text>{"¿Cuánto conoces el Helbreath?!"}</Text>
+            <VStack spacing={4} align="center" width="90%">
+              <Text textAlign="center" fontSize={{ base: "lg", md: "xl" }}>
+                {"¿Cuánto conoces el Helbreath?!"}
+              </Text>
               <Button onClick={handleStartGame} colorScheme={"main"}>
                 {"Comenzar!"}
               </Button>
             </VStack>
           )}
-
-          <Flex
-            justify="space-between"
-            align="center"
-            p={4}
-            borderRadius="md"
-            boxShadow="md"
-            width="100%"
-            position="relative"
-          >
-            <Flex direction="column" align="center" mb={4}>
-              {score !== null && (
-                <Text
-                  fontSize="lg"
-                  fontWeight="bold"
-                  color="main"
-                  mb={2}
-                  textAlign="center"
-                >
-                  Score Round: {score.toFixed(0)}
-                </Text>
-              )}
-              {totalScore !== null && gameStarted && (
-                <Text
-                  fontSize="lg"
-                  fontWeight="bold"
-                  color="main"
-                  textAlign="center"
-                >
-                  Score Total: {totalScore.toFixed(0)}
-                </Text>
-              )}
-            </Flex>
-
-            {currentRound > 0 && !gameEnded && gameStarted && (
-              <Button
-                onClick={handleCreateLocation}
-                colorScheme={"main"}
-                variant="solid"
-                size="lg"
-              >
-                {currentRound >= TOTAL_ROUNDS
-                  ? `Terminar (Ronda ${currentRound} de ${TOTAL_ROUNDS})`
-                  : `Siguiente ubicación (Ronda ${currentRound} de ${TOTAL_ROUNDS})`}
-              </Button>
-            )}
-          </Flex>
 
           {gameEnded && <Text fontSize="lg">{t("Juego Terminado")}</Text>}
 
@@ -357,7 +357,7 @@ const CreateGame = ({ navigateToCreateGame }: GameHeaderProps) => {
             </Box>
           )}
         </Box>
-      </Box>
+      </Flex>
     </VStack>
   );
 };

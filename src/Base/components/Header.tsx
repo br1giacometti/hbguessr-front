@@ -83,12 +83,6 @@ const Header = ({
         </Center>
       )}
       <Center gap={2}>
-        <IconButton
-          aria-label="dark mode"
-          icon={<Icon as={ColorModeIcon} />}
-          variant="ghost"
-          onClick={toggleColorMode}
-        />
         <ProfileMenu menu={menu} username={username} logout={handleLogout} />
       </Center>
     </Flex>
